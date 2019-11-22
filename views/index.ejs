@@ -1,0 +1,48 @@
+<link rel='stylesheet' href='/style.css' />
+<div class="container">  
+  <form id="contact" method="post" name="contact">
+    <h3>Appiness Form</h3>
+    <fieldset>
+      <input placeholder="User Name" name="username" type="text" required autocomplete="off">
+    </fieldset>
+    <fieldset>
+      <input placeholder="password" type="password" name="userpassword" required autocomplete="off">
+    </fieldset>
+    <% if(count !=0){%>
+    <fieldset>
+      <select id="contact_option" name="user_role" required>
+        <option value="" selected>Select Roles</option>
+        <option value="Account">Account</option>
+        <option value="Manager">Manager</option>
+        <option value="User">User</option>
+      </select>
+    </fieldset>
+    <% }else{ %>
+      <input  name="user_role" type="hidden" value="0">
+    <% } %>
+    <fieldset>
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+    </fieldset>
+  </form>
+</div>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+$(document).on('submit', '#contact', function(e){
+    e.preventDefault();
+    $.ajax({
+      type : 'POST',
+      url : '/add-user',
+      data : $(this).serialize(),
+       success :  function(response){ 
+       var obj = response
+       if(obj.status=='true'){
+        window.location.href="http://localhost:3000/";
+       }else{
+        window.location.href="http://localhost:3000/";
+       }
+
+       }
+  });
+
+});
+</script>
